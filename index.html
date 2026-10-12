@@ -3,394 +3,248 @@
 <html lang="ps" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>NOAMANI WEB | Mudarabah</title>
-
-<meta name="description"
-content="NOAMANI WEB - Advertising, business and Mudarabah profit sharing.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NOAMANI WEB | Dashboard</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f2f6f3;
-color:#163b2e;
-line-height:1.7;
+ margin:0;
+ background:#101319;
+ color:#fff;
+ font-family:Arial,sans-serif;
+ padding-bottom:85px;
 }
-
 header{
-background:linear-gradient(135deg,#032c20,#08734c);
-color:white;
-padding:35px 15px;
-text-align:center;
+ background:#15191f;
+ padding:20px;
+ text-align:center;
+ border-bottom:1px solid #806326;
 }
-
 .logo{
-font-size:30px;
-font-weight:bold;
-color:#e9c45b;
-letter-spacing:2px;
+ color:#e9b83f;
+ font-size:28px;
+ font-weight:bold;
+ letter-spacing:2px;
 }
-
-.subtitle{
-font-size:13px;
-color:#eee;
+small{color:#bba66f}
+main{max-width:950px;margin:auto;padding:15px}
+.gold-card{
+ background:linear-gradient(125deg,#76551a,#30230e);
+ border:1px solid #d4af37;
+ padding:23px;
+ border-radius:17px;
+ margin-bottom:22px;
 }
-
-nav{
-background:#032c20;
-padding:12px;
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-font-size:14px;
-}
-
-main{
-max-width:1050px;
-margin:auto;
-padding:15px;
-}
-
-.card{
-background:white;
-padding:22px;
-border-radius:12px;
-margin:17px 0;
-box-shadow:0 3px 12px #00000012;
-}
-
-h2{color:#07583d}
-
+.balance{font-size:29px;font-weight:bold;margin:15px 0}
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-gap:12px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:11px;
 }
-
-.item{
-background:#edf5ef;
-padding:18px;
-border-radius:10px;
-text-align:center;
+.tile{
+ background:#191d25;
+ border:1px solid #514322;
+ border-radius:12px;
+ color:white;
+ min-height:100px;
+ padding:12px 5px;
+ cursor:pointer;
 }
-
-.item strong{
-display:block;
-color:#07583d;
-font-size:18px;
+.tile span{
+ display:block;
+ color:#e9b83f;
+ font-size:28px;
+ margin-bottom:10px;
 }
-
-button{
-background:#d4af37;
-border:0;
-padding:12px 18px;
-border-radius:7px;
-font-weight:bold;
-cursor:pointer;
-margin:5px;
+.tile b{font-size:12px}
+.panel{
+ background:#191d25;
+ border:1px solid #514322;
+ border-radius:13px;
+ padding:20px;
+ margin-top:20px;
 }
-
+h2{color:#e9b83f;font-size:20px}
+.btn{
+ background:#d4af37;
+ color:#151515;
+ border:0;
+ padding:12px 20px;
+ border-radius:8px;
+ font-weight:bold;
+ cursor:pointer;
+}
 input{
-width:100%;
-padding:12px;
-margin:7px 0;
-border:1px solid #ccc;
-border-radius:7px;
-font-size:16px;
+ width:100%;
+ padding:12px;
+ margin:8px 0;
+ border-radius:8px;
+ border:1px solid #806326;
+ background:#101319;
+ color:white;
 }
-
-label{
-font-weight:bold;
-display:block;
-margin-top:10px;
-}
-
-.result{
-background:#e5f3e9;
-padding:16px;
-margin-top:15px;
-border-radius:9px;
-}
-
+label{display:block;margin-top:12px}
 .notice{
-background:#fff5d6;
-padding:14px;
-border-radius:8px;
-border-right:4px solid #d4af37;
+ color:#e9c878;
+ font-size:13px;
+ line-height:1.8;
 }
-
-.ad-space{
-min-height:1px;
-margin:15px 0;
+.bottom{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ display:flex;
+ justify-content:space-around;
+ background:#15191f;
+ border-top:1px solid #806326;
+ padding:14px 5px;
 }
-
-footer{
-background:#032c20;
-color:white;
-padding:25px;
-text-align:center;
+.bottom button{
+ background:none;
+ border:0;
+ color:#e9b83f;
+ font-size:12px;
 }
-
-footer a{color:#e9c45b}
-
-.lang button{
-padding:7px 12px;
-}
-
-@media(max-width:450px){
-.logo{font-size:25px}
-.card{padding:16px}
-}
+.hidden{display:none}
 </style>
+<script src="languages.js"></script>
 </head>
 
 <body>
-
 <header>
 <div class="logo">NOAMANI WEB</div>
-<p class="subtitle">
-Advertising • Investment • Earnings
-</p>
-
-<div class="lang">
-<button onclick="setLang('ps')">پښتو</button>
-<button onclick="setLang('fa')">دري</button>
-<button onclick="setLang('en')">English</button>
-</div>
+<p data-i18n="welcome">NOAMANI WEB ته ښه راغلاست</p>
+<small>Advertising • Investment • Earnings</small>
 </header>
 
-<nav>
-<a href="#home" data-ps="کور" data-fa="خانه" data-en="Home">کور</a>
-<a href="#investment" data-ps="مضاربت" data-fa="مضاربت" data-en="Investment">مضاربت</a>
-<a href="#employees" data-ps="کارکوونکي" data-fa="کارمندان" data-en="Employees">کارکوونکي</a>
-<a href="#about" data-ps="زموږ په اړه" data-fa="درباره ما" data-en="About">زموږ په اړه</a>
-</nav>
+
+<div id="languageSwitcher" style="text-align:center;padding:12px">
+<button class="btn" onclick="setLanguage('ps')">پښتو</button>
+<button class="btn" onclick="setLanguage('fa')">دری</button>
+<button class="btn" onclick="setLanguage('en')">English</button>
+</div>
 
 <main>
-
-<section class="card" id="home">
-<h2 data-ps="نعماني ویب ته ښه راغلاست"
-data-fa="به نعمانی ویب خوش آمدید"
-data-en="Welcome to NOAMANI WEB">
-نعماني ویب ته ښه راغلاست
-</h2>
-
-<p data-ps="د اعلاناتو، حقیقي کاروبار او مضاربت لپاره یو ډیجیټل پلیټفارم."
-data-fa="یک پلتفرم دیجیتال برای تبلیغات، تجارت واقعی و مضاربت."
-data-en="A digital platform for advertising, real business and Mudarabah.">
-د اعلاناتو، حقیقي کاروبار او مضاربت لپاره یو ډیجیټل پلیټفارم.
-</p>
-
-<div class="grid">
-<div class="item">
-<strong>Google Ads</strong>
-<span data-ps="اعلانات" data-fa="تبلیغات" data-en="Advertising">اعلانات</span>
+<div class="gold-card">
+<small>NOAMANI PREMIUM ACCOUNT</small>
+<div class="balance">0.00 AFN</div>
+<small>Demo Balance • Not real money</small>
 </div>
 
-<div class="item">
-<strong>Mudarabah</strong>
-<span data-ps="پانګونه" data-fa="سرمایه‌گذاری" data-en="Investment">پانګونه</span>
-</div>
-
-<div class="item">
-<strong>50%</strong>
-<span data-ps="د کارکوونکو د عاید صندوق"
-data-fa="صندوق درآمد کارمندان"
-data-en="Employee earnings fund">
-د کارکوونکو د عاید صندوق
-</span>
-</div>
-</div>
+<section id="home">
+<div class="grid" id="menu"></div>
 </section>
 
-<!-- Official Google AdSense placement.
-Activate only after approval and eligibility. -->
-<div id="adsense-top" class="ad-space"></div>
-
-<section class="card" id="investment">
-
-<h2 data-ps="د مضاربت سیستم"
-data-fa="سیستم مضاربت"
-data-en="Mudarabah System">
-د مضاربت سیستم
-</h2>
-
-<p data-ps="د حقیقي خالصې ګټې د وېش محاسبه وکړئ. دا یوازې ازمایښتي محاسبوي وسیله ده."
-data-fa="سهم سود خالص واقعی را محاسبه کنید. این ابزار صرفاً آزمایشی است."
-data-en="Calculate shares of actual net profit. This is a demonstration calculator.">
-د حقیقي خالصې ګټې د وېش محاسبه وکړئ. دا یوازې ازمایښتي محاسبوي وسیله ده.
-</p>
-
-<label data-ps="د پانګونې اندازه (AFN)"
-data-fa="مقدار سرمایه (AFN)"
-data-en="Investment amount (AFN)">
-د پانګونې اندازه (AFN)
-</label>
-<input type="number" id="capital" min="0" value="10000">
-
-<label data-ps="حقیقي خالصه ګټه (AFN)"
-data-fa="سود خالص واقعی (AFN)"
-data-en="Actual net profit (AFN)">
-حقیقي خالصه ګټه (AFN)
-</label>
-<input type="number" id="profit" min="0" value="1000">
-
-<label data-ps="د پانګوال د ګټې سلنه"
-data-fa="فیصدی سهم سرمایه‌گذار"
-data-en="Investor profit share (%)">
-د پانګوال د ګټې سلنه
-</label>
-<input type="number" id="share" min="0" max="100" value="60">
-
-<button onclick="calculate()"
-data-ps="ګټه محاسبه کړه"
-data-fa="محاسبه سود"
-data-en="Calculate profit">
-ګټه محاسبه کړه
-</button>
-
-<div class="result" id="result" aria-live="polite">
-د محاسبې پایله به دلته ښکاره شي.
-</div>
-
-<p class="notice"
-data-ps="یادونه: دا د ګټې تضمین نه دی. په مضاربت کې ګټه د حقیقي کاروبار له پایلو سره تړلې ده. د زیان شرایط باید په قانوني تړون کې مشخص شي."
-data-fa="توجه: سود تضمین‌شده نیست. سود به نتیجه واقعی تجارت وابسته است و شرایط زیان باید در قرارداد مشخص شود."
-data-en="Profit is not guaranteed. It depends on actual business results, and loss terms must be defined in a valid agreement.">
-یادونه: دا د ګټې تضمین نه دی. په مضاربت کې ګټه د حقیقي کاروبار له پایلو سره تړلې ده. د زیان شرایط باید په قانوني تړون کې مشخص شي.
-</p>
-</section>
-
-<!-- Second AdSense placement -->
-<div id="adsense-middle" class="ad-space"></div>
-
-<section class="card" id="employees">
-<h2 data-ps="د کارکوونکو سیستم"
-data-fa="سیستم کارمندان"
-data-en="Employee System">
-د کارکوونکو سیستم
-</h2>
-
-<p data-ps="د شرکت د ټاکل شوي خالص عملیاتي عاید ۵۰٪ به د حقیقي کارونو له مخې د کارکوونکو صندوق ته ځانګړي کېږي."
-data-fa="۵۰٪ درآمد خالص عملیاتی تعیین‌شده شرکت بر اساس کار واقعی به صندوق کارمندان اختصاص می‌یابد."
-data-en="50% of the company's designated net operating income is allocated to the employee fund based on genuine work.">
-د شرکت د ټاکل شوي خالص عملیاتي عاید ۵۰٪ به د حقیقي کارونو له مخې د کارکوونکو صندوق ته ځانګړي کېږي.
-</p>
-
-<div class="notice"
-data-ps="د اعلان لیدلو یا کلیک کولو په بدل کې هېڅ انعام نه ورکول کېږي."
-data-fa="برای دیدن یا کلیک کردن روی تبلیغات هیچ پاداشی پرداخت نمی‌شود."
-data-en="No rewards are paid for viewing or clicking advertisements.">
-د اعلان لیدلو یا کلیک کولو په بدل کې هېڅ انعام نه ورکول کېږي.
-</div>
-</section>
-
-<section class="card" id="about">
-<h2 data-ps="زموږ په اړه"
-data-fa="درباره ما"
-data-en="About Us">
-زموږ په اړه
-</h2>
-
-<p data-ps="NOAMANI WEB د اعلاناتو او حقیقي کاروبار د مدیریت لپاره د جوړېدو په حال کې یو پلیټفارم دی."
-data-fa="NOAMANI WEB پلتفرمی در حال توسعه برای مدیریت تبلیغات و تجارت واقعی است."
-data-en="NOAMANI WEB is a platform under development for advertising and genuine business management.">
-NOAMANI WEB د اعلاناتو او حقیقي کاروبار د مدیریت لپاره د جوړېدو په حال کې یو پلیټفارم دی.
-</p>
+<section class="panel hidden" id="detail">
+<h2 id="pageTitle"></h2>
+<p id="pageText"></p>
+<div id="pageContent"></div>
+<button class="btn" onclick="goHome()">بېرته کور ته</button>
 </section>
 
 </main>
 
-<footer>
-<strong>NOAMANI WEB</strong>
-<p>© 2026 All Rights Reserved</p>
-<p>Advertising • Investment • Earnings</p>
-</footer>
+<div class="bottom">
+<button onclick="goHome()">⌂ Dashboard</button>
+<button onclick="openPage(2)">▣ Wallet</button>
+<button onclick="openPage(12)">☎ Support</button>
+<button onclick="openPage(14)">♙ Profile</button>
+</div>
 
 <script>
-const messages = {
-ps:"د محاسبې پایله",
-fa:"نتیجه محاسبه",
-en:"Calculation result"
-};
+const pages = [
+  ["♙","Register","Registration section"],
+  ["➜","Login","Account login section"],
+  ["▣","Wallet","Personal account information"],
+  ["◈","Investment","Mudarabah investment"],
+  ["▤","Employee","Employee system"],
+  ["◉","Advertising","Google AdSense section"],
+  ["↓","Deposit","Deposit funds"],
+  ["↑","Withdraw","Withdraw funds"],
+  ["★","Rewards","Rewards for real activity"],
+  ["♧","Referrals","Referral information"],
+  ["◷","Transactions","Account history"],
+  ["▦","Profit Calculator","Mudarabah calculator"],
+  ["☎","Support","Support section"],
+  ["⚙","Admin Panel","Administration section"],
+  ["♙","Profile","Personal information"]
+];
 
-let currentLang = "ps";
+const menu = document.getElementById("menu");
+let currentPage = -1;
+window.currentPage = currentPage;
 
-function setLang(lang){
-currentLang=lang;
-document.documentElement.lang=lang;
-document.documentElement.dir=
-lang==="en"?"ltr":"rtl";
-
-document.querySelectorAll("[data-"+lang+"]")
-.forEach(el=>{
-el.textContent=el.getAttribute("data-"+lang);
+pages.forEach((p, i) => {
+  const btn = document.createElement("button");
+  btn.className = "tile";
+  const icon = document.createElement("span");
+  icon.textContent = p[0];
+  const name = document.createElement("b");
+  name.textContent = p[1];
+  btn.append(icon, name);
+  btn.onclick = () => openPage(i);
+  menu.appendChild(btn);
 });
 
-calculate();
+function goHome() {
+  currentPage = -1;
+  window.currentPage = -1;
+  document.getElementById("home").classList.remove("hidden");
+  document.getElementById("detail").classList.add("hidden");
 }
 
-function calculate(){
-const capital=document.getElementById("capital").valueAsNumber;
-const profit=document.getElementById("profit").valueAsNumber;
-const share=document.getElementById("share").valueAsNumber;
-const result=document.getElementById("result");
+function openPage(i) {
+  if (!Number.isInteger(i) || !pages[i]) return;
+  currentPage = i;
+  window.currentPage = i;
 
-if(
-!Number.isFinite(capital) ||
-!Number.isFinite(profit) ||
-!Number.isFinite(share) ||
-capital<0 || profit<0 ||
-share<0 || share>100
-){
-result.textContent="Please enter valid non-negative numbers and a share between 0 and 100.";
-return;
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("detail").classList.remove("hidden");
+
+  const lang = localStorage.getItem("noamani-language") || "ps";
+  const t = translations[lang] || translations.ps;
+
+  document.getElementById("pageTitle").textContent = t.menu[i];
+  document.getElementById("pageText").textContent = t.descriptions[i];
+
+  const content = document.getElementById("pageContent");
+  content.replaceChildren();
+
+  if (i === 11) {
+    renderCalculator(t);
+  } else {
+    const notice = document.createElement("p");
+    notice.className = "notice";
+    notice.textContent = t.notice;
+    content.appendChild(notice);
+  }
 }
 
-const investor=profit*share/100;
-const manager=profit-investor;
+function calculate() {
+  const profitInput = document.getElementById("profit");
+  const shareInput = document.getElementById("share");
+  const out = document.getElementById("answer");
+  if (!profitInput || !shareInput || !out) return;
 
-const labels={
-ps:["سرمایه","د پانګوال ګټه","د مدیر ګټه"],
-fa:["سرمایه","سهم سرمایه‌گذار","سهم مدیر"],
-en:["Capital","Investor profit","Manager profit"]
-};
+  const p = profitInput.valueAsNumber;
+  const s = shareInput.valueAsNumber;
+  const lang = localStorage.getItem("noamani-language") || "ps";
+  const t = translations[lang] || translations.ps;
 
-const l=labels[currentLang];
-const fmt=n=>n.toLocaleString("en-US",{
-maximumFractionDigits:2
-});
+  if (!Number.isFinite(p) || !Number.isFinite(s) ||
+      p < 0 || s < 0 || s > 100) {
+    out.textContent = t.invalid;
+    return;
+  }
 
-result.replaceChildren();
-
-const heading=document.createElement("strong");
-heading.textContent=messages[currentLang];
-result.appendChild(heading);
-
-[
-[l[0],capital],
-[l[1],investor],
-[l[2],manager]
-].forEach(([name,value])=>{
-const p=document.createElement("p");
-p.textContent=name+": "+fmt(value)+" AFN";
-result.appendChild(p);
-});
+  const investor = p * s / 100;
+  const manager = p - investor;
+  out.textContent =
+    t.investor + ": " + investor.toFixed(2) +
+    " AFN | " + t.manager + ": " + manager.toFixed(2) + " AFN";
 }
-
-setLang("ps");
 </script>
-
 </body>
 </html>
-
