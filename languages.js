@@ -43,6 +43,17 @@ const translations = {
       demo: "ازمایښتي حساب",
       saved: "معلومات خوندي شول."
     },
+    authLabels: {
+      register: "نوی حساب جوړول",
+      login: "حساب ته ننوتل",
+      username: "کارن نوم",
+      email: "برېښنالیک",
+      password: "پاسورډ",
+      confirm: "پاسورډ بیا ولیکئ",
+      create: "حساب جوړول",
+      enter: "ننوتل",
+      demo: "دا فورمه لا ازمایښتي ده. حقیقي حسابونه نه جوړېږي او پاسورډونه نه ساتل کېږي."
+    },
     legalPages: {
       about: ["زموږ په اړه", "NOAMANI WEB یوه معلوماتي ویب پاڼه ده چې ډیجیټلي خدمات او ګټور معلومات وړاندې کوي. ځینې برخې لا د جوړېدو په حال کې دي."],
       contact: ["اړیکه", "د مرستې او پوښتنو لپاره زموږ رسمي ملاتړ ته پیغام واستوئ. د اړیکې رسمي معلومات به دلته خپاره شي."],
@@ -92,6 +103,17 @@ const translations = {
       status: "وضعیت حساب",
       demo: "حساب آزمایشی",
       saved: "معلومات ذخیره شد."
+    },
+    authLabels: {
+      register: "ایجاد حساب جدید",
+      login: "ورود به حساب",
+      username: "نام کاربری",
+      email: "ایمیل",
+      password: "رمز عبور",
+      confirm: "تکرار رمز عبور",
+      create: "ایجاد حساب",
+      enter: "ورود",
+      demo: "این فرم هنوز آزمایشی است. حساب واقعی ساخته نمی‌شود و رمزهای عبور ذخیره نمی‌شوند."
     },
     legalPages: {
       about: ["درباره ما", "NOAMANI WEB یک وب‌سایت معلوماتی برای ارائه خدمات دیجیتالی و اطلاعات مفید است. برخی بخش‌ها هنوز در حال ساخت هستند."],
@@ -143,6 +165,17 @@ const translations = {
       demo: "Demo account",
       saved: "Information saved."
     },
+    authLabels: {
+      register: "Create New Account",
+      login: "Login to Account",
+      username: "Username",
+      email: "Email",
+      password: "Password",
+      confirm: "Confirm Password",
+      create: "Create Account",
+      enter: "Login",
+      demo: "This form is a demonstration. Real accounts are not created and passwords are not stored."
+    },
     legalPages: {
       about: ["About Us", "NOAMANI WEB is an informational website for digital services and useful resources. Some sections are still under development."],
       contact: ["Contact Us", "For questions or help, contact our official support channel. Verified contact details will be published here."],
@@ -191,6 +224,9 @@ function setLanguage(lang) {
     pageText.textContent = t.descriptions[activePage] || "";
     if (activePage === 11) renderCalculator(t);
     if (activePage === 14) renderProfile(t);
+    if (activePage === 0 || activePage === 1) {
+      renderAuth(t, activePage);
+    }
 
     const content = document.getElementById("pageContent");
     if (key && t.legalPages && content) {

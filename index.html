@@ -223,7 +223,9 @@ function openPage(i) {
     18: "terms"
   };
 
-  if (i === 14) {
+  if (i === 0 || i === 1) {
+    renderAuth(t, i);
+  } else if (i === 14) {
     renderProfile(t);
   } else if (i === 11) {
     renderCalculator(t);
@@ -240,6 +242,63 @@ function openPage(i) {
   }
 }
 
+
+
+function renderAuth(t, mode) {
+  const a = t.authLabels;
+  const register = mode === 0;
+  const content = document.getElementById("pageContent");
+  content.replaceChildren();
+
+  const card = document.createElement("div");
+  card.className = "gold-card";
+
+  const heading = document.createElement("h2");
+  heading.textContent = register ? a.register : a.login;
+  card.appendChild(heading);
+
+  function addField(labelText, type, autocomplete) {
+    const label = document.createElement("label");
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.type = type;
+    input.autocomplete = autocomplete;
+    input.required = true;
+
+    card.append(label, input);
+    return input;
+  }
+
+  if (register) {
+    addField(a.username, "text", "username");
+  }
+
+  addField(a.email, "email", "email");
+  addField(
+    a.password,
+    "password",
+    register ? "new-password" : "current-password"
+  );
+
+  if (register) {
+    addField(a.confirm, "password", "new-password");
+  }
+
+  const button = document.createElement("button");
+  button.className = "btn";
+  button.type = "button";
+  button.textContent = register ? a.create : a.enter;
+  button.disabled = true;
+  button.title = a.demo;
+
+  const notice = document.createElement("p");
+  notice.className = "notice";
+  notice.textContent = a.demo;
+
+  card.append(button, notice);
+  content.appendChild(card);
+}
 
 function renderProfile(t) {
   const content = document.getElementById("pageContent");
