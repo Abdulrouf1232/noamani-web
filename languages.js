@@ -33,7 +33,22 @@ const translations = {
     calculate: "محاسبه",
     invalid: "مهرباني وکړئ سم معلومات ولیکئ.",
     investor: "د پانګوال برخه",
-    manager: "د مدیر برخه"
+    manager: "د مدیر برخه",
+    profileLabels: {
+      title: "شخصي پروفایل",
+      name: "د کارن نوم",
+      id: "د حساب پېژندشمېره",
+      save: "معلومات خوندي کول",
+      status: "د حساب حالت",
+      demo: "ازمایښتي حساب",
+      saved: "معلومات خوندي شول."
+    },
+    legalPages: {
+      about: ["زموږ په اړه", "NOAMANI WEB یوه معلوماتي ویب پاڼه ده چې ډیجیټلي خدمات او ګټور معلومات وړاندې کوي. ځینې برخې لا د جوړېدو په حال کې دي."],
+      contact: ["اړیکه", "د مرستې او پوښتنو لپاره زموږ رسمي ملاتړ ته پیغام واستوئ. د اړیکې رسمي معلومات به دلته خپاره شي."],
+      privacy: ["د محرمیت تګلاره", "موږ باید د کاروونکو شخصي معلومات په مسؤلانه ډول وساتو. دا ازمایښتي ویب پاڼه اوس د حقیقي مالي معاملاتو د ترسره کولو لپاره فعاله نه ده. د معلوماتو راټولولو او کارولو جزئیات به د هر فعال خدمت له پیل مخکې روښانه شي."],
+      terms: ["شرایط او مقررات", "د دې ویب پاڼې ځینې برخې یوازې ازمایښتي دي. په ښکاره ښودل شوی Demo Balance حقیقي پیسې نه دي. د حقیقي مالي خدمتونو، پانګونې یا عاید ادعا مه کوئ، تر څو هغه خدمتونه واقعاً فعال او شرایط یې واضح شوي نه وي."]
+    }
   },
   fa: {
     welcome: "به NOAMANI WEB خوش آمدید",
@@ -68,7 +83,22 @@ const translations = {
     calculate: "محاسبه",
     invalid: "لطفاً اطلاعات معتبر وارد کنید.",
     investor: "سهم سرمایه‌گذار",
-    manager: "سهم مدیر"
+    manager: "سهم مدیر",
+    profileLabels: {
+      title: "پروفایل شخصی",
+      name: "نام کاربر",
+      id: "شناسه حساب",
+      save: "ذخیره معلومات",
+      status: "وضعیت حساب",
+      demo: "حساب آزمایشی",
+      saved: "معلومات ذخیره شد."
+    },
+    legalPages: {
+      about: ["درباره ما", "NOAMANI WEB یک وب‌سایت معلوماتی برای ارائه خدمات دیجیتالی و اطلاعات مفید است. برخی بخش‌ها هنوز در حال ساخت هستند."],
+      contact: ["تماس با ما", "برای پرسش‌ها و دریافت کمک، به پشتیبانی رسمی ما پیام بفرستید. اطلاعات رسمی تماس در این بخش منتشر خواهد شد."],
+      privacy: ["سیاست حفظ حریم خصوصی", "ما باید اطلاعات شخصی کاربران را مسئولانه نگهداری کنیم. این وب‌سایت آزمایشی در حال حاضر برای انجام معاملات مالی واقعی فعال نیست. جزئیات جمع‌آوری و استفاده از اطلاعات پیش از فعال‌شدن هر خدمت مشخص خواهد شد."],
+      terms: ["شرایط و مقررات", "برخی بخش‌های این وب‌سایت آزمایشی هستند. موجودی نمایشی پول واقعی نیست. تا زمانی که خدمات مالی واقعاً فعال و شرایط آن‌ها روشن نشده، ادعای ارائه خدمات مالی، سرمایه‌گذاری یا درآمد واقعی نکنید."]
+    }
   },
   en: {
     welcome: "Welcome to NOAMANI WEB",
@@ -103,7 +133,22 @@ const translations = {
     calculate: "Calculate",
     invalid: "Please enter valid information.",
     investor: "Investor share",
-    manager: "Manager share"
+    manager: "Manager share",
+    profileLabels: {
+      title: "Personal Profile",
+      name: "User name",
+      id: "Account ID",
+      save: "Save information",
+      status: "Account status",
+      demo: "Demo account",
+      saved: "Information saved."
+    },
+    legalPages: {
+      about: ["About Us", "NOAMANI WEB is an informational website for digital services and useful resources. Some sections are still under development."],
+      contact: ["Contact Us", "For questions or help, contact our official support channel. Verified contact details will be published here."],
+      privacy: ["Privacy Policy", "We aim to handle users’ personal information responsibly. This demo website is not currently enabled for real financial transactions. Details about data collection and use will be provided before any relevant service becomes active."],
+      terms: ["Terms & Conditions", "Some parts of this website are demonstrations. The displayed demo balance is not real money. Do not treat this website as providing real financial services, investments, or earnings until those services are genuinely available and their terms are clearly published."]
+    }
   }
 };
 
@@ -131,11 +176,30 @@ function setLanguage(lang) {
   const title = document.getElementById("pageTitle");
   const pageText = document.getElementById("pageText");
   const activePage = window.currentPage;
+  const legalKeys = {
+    15: "about",
+    16: "contact",
+    17: "privacy",
+    18: "terms"
+  };
 
   if (Number.isInteger(activePage) && activePage >= 0) {
-    title.textContent = t.menu[activePage];
-    pageText.textContent = t.descriptions[activePage];
+    const key = legalKeys[activePage];
+    title.textContent = key && t.legalPages
+      ? t.legalPages[key][0]
+      : t.menu[activePage];
+    pageText.textContent = t.descriptions[activePage] || "";
     if (activePage === 11) renderCalculator(t);
+    if (activePage === 14) renderProfile(t);
+
+    const content = document.getElementById("pageContent");
+    if (key && t.legalPages && content) {
+      content.replaceChildren();
+      const paragraph = document.createElement("p");
+      paragraph.className = "notice";
+      paragraph.textContent = t.legalPages[key][1];
+      content.appendChild(paragraph);
+    }
   }
 
   document.querySelector("#detail .btn").textContent = t.back;

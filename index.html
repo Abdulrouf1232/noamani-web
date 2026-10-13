@@ -169,7 +169,11 @@ const pages = [
   ["▦","Profit Calculator","Mudarabah calculator"],
   ["☎","Support","Support section"],
   ["⚙","Admin Panel","Administration section"],
-  ["♙","Profile","Personal information"]
+  ["♙","Profile","Personal information"],
+  ["ⓘ","About Us","About NOAMANI WEB"],
+  ["☎","Contact Us","Contact and support information"],
+  ["🔒","Privacy Policy","Privacy and data handling"],
+  ["▤","Terms & Conditions","Website terms and conditions"]
 ];
 
 const menu = document.getElementById("menu");
@@ -212,14 +216,81 @@ function openPage(i) {
   const content = document.getElementById("pageContent");
   content.replaceChildren();
 
-  if (i === 11) {
+  const legalKeys = {
+    15: "about",
+    16: "contact",
+    17: "privacy",
+    18: "terms"
+  };
+
+  if (i === 14) {
+    renderProfile(t);
+  } else if (i === 11) {
     renderCalculator(t);
+  } else if (legalKeys[i] && t.legalPages && t.legalPages[legalKeys[i]]) {
+    const paragraph = document.createElement("p");
+    paragraph.className = "notice";
+    paragraph.textContent = t.legalPages[legalKeys[i]][1];
+    content.appendChild(paragraph);
   } else {
     const notice = document.createElement("p");
     notice.className = "notice";
     notice.textContent = t.notice;
     content.appendChild(notice);
   }
+}
+
+
+function renderProfile(t) {
+  const content = document.getElementById("pageContent");
+  const labels = t.profileLabels;
+
+  content.replaceChildren();
+
+  const card = document.createElement("div");
+  card.className = "gold-card";
+
+  const heading = document.createElement("h2");
+  heading.textContent = "♙ " + labels.title;
+
+  const nameLabel = document.createElement("label");
+  nameLabel.textContent = labels.name;
+
+  const nameInput = document.createElement("input");
+  nameInput.id = "profileName";
+  nameInput.maxLength = 60;
+  nameInput.value = localStorage.getItem("noamani-profile-name") || "";
+
+  const status = document.createElement("p");
+  status.className = "notice";
+  status.textContent = labels.status + ": " + labels.demo;
+
+  const save = document.createElement("button");
+  save.className = "btn";
+  save.textContent = labels.save;
+
+  const message = document.createElement("p");
+  message.className = "notice";
+  message.setAttribute("aria-live", "polite");
+
+  save.onclick = () => {
+    localStorage.setItem(
+      "noamani-profile-name",
+      nameInput.value.trim()
+    );
+    message.textContent = labels.saved;
+  };
+
+  card.append(
+    heading,
+    nameLabel,
+    nameInput,
+    status,
+    save,
+    message
+  );
+
+  content.appendChild(card);
 }
 
 function calculate() {
