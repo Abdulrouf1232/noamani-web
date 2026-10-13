@@ -244,6 +244,7 @@ function openPage(i) {
 
 
 
+
 function renderAuth(t, mode) {
   const a = t.authLabels;
   const register = mode === 0;
@@ -270,31 +271,125 @@ function renderAuth(t, mode) {
     return input;
   }
 
-  if (register) {
-    addField(a.username, "text", "username");
-  }
+  const username = register
+    ? addField(a.username, "text", "username")
+    : null;
 
-  addField(a.email, "email", "email");
-  addField(
+  const email = addField(a.email, "email", "email");
+
+  const password = addField(
     a.password,
     "password",
     register ? "new-password" : "current-password"
   );
 
-  if (register) {
-    addField(a.confirm, "password", "new-password");
-  }
+  password.minLength = 6;
+
+  const confirm = register
+    ? addField(a.confirm, "password", "new-password")
+    : null;
 
   const button = document.createElement("button");
   button.className = "btn";
   button.type = "button";
   button.textContent = register ? a.create : a.enter;
-  button.disabled = true;
-  button.title = a.demo;
 
   const notice = document.createElement("p");
   notice.className = "notice";
-  notice.textContent = a.demo;
+  notice.setAttribute("role", "status");
+  notice.setAttribute("aria-live", "polite");
+  notice.textContent = "";
+
+  const messages = {
+    ps: {
+      wait: "مهرباني وکړئ لږ انتظار وکړئ...",
+      mismatch: "دواړه پاسورډونه یو شان نه دي.",
+      successRegister: "حساب په بریالیتوب جوړ شو!",
+      successLogin: "په بریالیتوب داخل شوئ!",
+      unavailable: "Firebase لا نه دی چمتو. پاڼه بیا تازه کړئ.",
+      "auth/email-already-in-use": "دا ایمېل مخکې ثبت شوی دی.",
+      "auth/invalid-email": "د ایمېل پته سمه نه ده.",
+      "auth/weak-password": "پاسورډ ډېر کمزوری دی.",
+      "auth/invalid-credential": "ایمېل یا پاسورډ ناسم دی.",
+      "auth/too-many-requests": "ډېرې هڅې شوې دي. وروسته بیا هڅه وکړئ.",
+      "auth/network-request-failed": "د انټرنېټ اړیکه وګورئ.",
+      error: "ستونزه رامنځته شوه. بیا هڅه وکړئ."
+    },
+    fa: {
+      wait: "لطفاً کمی صبر کنید...",
+      mismatch: "رمزهای عبور یکسان نیستند.",
+      successRegister: "حساب با موفقیت ساخته شد!",
+      successLogin: "با موفقیت وارد شدید!",
+      unavailable: "Firebase هنوز آماده نیست. صفحه را تازه کنید.",
+      "auth/email-already-in-use": "این ایمیل قبلاً ثبت شده است.",
+      "auth/invalid-email": "آدرس ایمیل درست نیست.",
+      "auth/weak-password": "رمز عبور ضعیف است.",
+      "auth/invalid-credential": "ایمیل یا رمز عبور نادرست است.",
+      "auth/too-many-requests": "تلاش‌های زیادی انجام شده؛ بعداً امتحان کنید.",
+      "auth/network-request-failed": "اتصال اینترنت را بررسی کنید.",
+      error: "مشکلی رخ داد. دوباره تلاش کنید."
+    },
+    en: {
+      wait: "Please wait...",
+      mismatch: "Passwords do not match.",
+      successRegister: "Account created successfully!",
+      successLogin: "Logged in successfully!",
+      unavailable: "Firebase is not ready. Please refresh the page.",
+      "auth/email-already-in-use": "This email is already registered.",
+      "auth/invalid-email": "Invalid email address.",
+      "auth/weak-password": "Password is too weak.",
+      "auth/invalid-credential": "Incorrect email or password.",
+      "auth/too-many-requests": "Too many attempts. Try again later.",
+      "auth/network-request-failed": "Check your internet connection.",
+      error: "Something went wrong. Please try again."
+    }
+  };
+
+  const lang = localStorage.getItem("noamani-language") || "ps";
+  const m = messages[lang] || messages.ps;
+
+  button.addEventListener("click", async () => {
+    if (!email.reportValidity() || !password.reportValidity()) return;
+    if (username && !username.reportValidity()) return;
+    if (confirm && !confirm.reportValidity()) return;
+
+    if (register && password.value !== confirm.value) {
+      notice.textContent = m.mismatch;
+      return;
+    }
+
+    if (!window.noamaniAuth?.ready) {
+      notice.textContent = m.unavailable;
+      return;
+    }
+
+    button.disabled = true;
+    notice.textContent = m.wait;
+
+    try {
+      if (register) {
+        await window.noamaniAuth.register(
+          username.value,
+          email.value,
+          password.value
+        );
+        notice.textContent = m.successRegister;
+      } else {
+        await window.noamaniAuth.login(
+          email.value,
+          password.value
+        );
+        notice.textContent = m.successLogin;
+      }
+
+      password.value = "";
+      if (confirm) confirm.value = "";
+    } catch (error) {
+      notice.textContent = m[error.code] || m.error;
+    } finally {
+      button.disabled = false;
+    }
+  });
 
   card.append(button, notice);
   content.appendChild(card);
@@ -376,5 +471,6 @@ function calculate() {
     " AFN | " + t.manager + ": " + manager.toFixed(2) + " AFN";
 }
 </script>
+<script type="module" src="auth.js"></script>
 </body>
 </html>
